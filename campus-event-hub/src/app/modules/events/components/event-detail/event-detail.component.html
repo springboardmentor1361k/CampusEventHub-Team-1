@@ -1,0 +1,182 @@
+<div class="event-detail-container" *ngIf="!loading && event; else loadingTemplate">
+  <a routerLink="/events" class="back-link">← Back to Events</a>
+
+  <div class="event-banner" [ngStyle]="{'background-image': 'url(' + (event.image || 'https://ui-avatars.com/api/?name=' + event.category + '&background=random&color=fff&size=800&font-size=0.15') + ')'}">
+  </div>
+
+  <div class="event-header">
+    <h1>{{ event.title }}</h1>
+    <span class="status-badge" [ngClass]="'status-' + event.status">
+      {{ event.status | titlecase }}
+    </span>
+  </div>
+
+  <div class="event-info-grid">
+    <div class="info-card">
+      <h3>Hosted by</h3>
+      <p>{{ event.collegeName }}</p>
+    </div>
+    <div class="info-card">
+      <h3>Category</h3>
+      <p>{{ event.category | titlecase }}</p>
+    </div>
+    <div class="info-card">
+      <h3>Location</h3>
+      <p>{{ event.location }}</p>
+    </div>
+    <div class="info-card">
+      <h3>Available Slots</h3>
+      <p>{{ event.totalSlots - event.registeredCount }} / {{ event.totalSlots }}</p>
+    </div>
+  </div>
+
+  <div class="event-dates">
+    <div class="date-item">
+      <span class="date-label">Starts:</span>
+      <span>{{ event.startDate | date: 'full' }}</span>
+    </div>
+    <div class="date-item">
+      <span class="date-label">Ends:</span>
+      <span>{{ event.endDate | date: 'full' }}</span>
+    </div>
+  </div>
+
+  <div class="event-description">
+    <h2>About This Event</h2>
+    <p>{{ event.description }}</p>
+  </div>
+
+  <div class="event-info-grid" *ngIf="event.entryFee !== undefined">
+    <div class="info-card">
+      <h3>Entry Fee</h3>
+      <p>{{ event.entryFee === 0 ? 'Free' : '₹' + event.entryFee }}</p>
+    </div>
+  </div>
+
+  <div class="event-extra-section" *ngIf="event.requirements">
+    <h2>📋 Requirements / Eligibility</h2>
+    <p>{{ event.requirements }}</p>
+  </div>
+
+  <div class="event-extra-section" *ngIf="event.prizes">
+    <h2>🏆 Prizes & Rewards</h2>
+    <p>{{ event.prizes }}</p>
+  </div>
+
+  <div class="event-extra-section" *ngIf="event.rules">
+    <h2>📜 Rules & Guidelines</h2>
+    <p>{{ event.rules }}</p>
+  </div>
+
+  <div class="event-extra-section" *ngIf="event.contactEmail || event.contactPhone">
+    <h2>📞 Contact Information</h2>
+    <p *ngIf="event.contactEmail">Email: <a [href]="'mailto:' + event.contactEmail">{{ event.contactEmail }}</a></p>
+    <p *ngIf="event.contactPhone">Phone: {{ event.contactPhone }}</p>
+  </div>
+
+  <div class="action-section" *ngIf="isStudent">
+    <button
+      *ngIf="!isUserRegistered && event.status === 'upcoming'"
+      (click)="registerForEvent()"
+      class="btn btn-primary"
+      [disabled]="event.totalSlots - event.registeredCount <= 0"
+    >
+      {{ event.totalSlots - event.registeredCount > 0 ? 'Register Now' : 'Event Full' }}
+    </button>
+    <button
+      *ngIf="!isUserRegistered && event.status === 'ongoing'"
+      class="btn btn-warning"
+      disabled
+    >
+      ⚠️ Event Already Started
+    </button>
+    <button
+      *ngIf="!isUserRegistered && event.status === 'completed'"
+      class="btn btn-secondary"
+      disabled
+    >
+      Event Ended
+    </button>
+    <button
+      *ngIf="!isUserRegistered && event.status === 'cancelled'"
+      class="btn btn-danger"
+      disabled
+    >
+      Event Cancelled
+    </button>
+    <button
+      *ngIf="isUserRegistered"
+      class="btn btn-success"
+      disabled
+    >
+      ✓ Registered
+    </button>
+  </div>
+
+  <div class="feedback-section">
+    <h2>Event Ratings & Feedback</h2>
+    <div *ngIf="feedback.length === 0" class="no-feedback">
+      <p>No feedback yet. Be the first to review!</p>
+    </div>
+    <div *ngIf="feedback.length > 0" class="feedback-stats">
+      <div class="average-rating">
+        <span class="rating-value">{{ getAverageRating() }}</span>
+        <span class="rating-label">/ 5.0</span>
+        <span class="feedback-count">({{ feedback.length }} reviews)</span>
+      </div>
+    </div>
+
+    <!-- Feedback Submission Form -->
+    <div *ngIf="isUserRegistered && registrationStatus === 'approved'" class="feedback-form-container" style="margin-top:20px; padding: 20px; background: #eef2ff; border-radius: 8px; border: 1px solid #c7d2fe;">
+      <h3 style="color: #4338ca; margin-top: 0;">Leave a Review</h3>
+      <p style="font-size: 14px; color: #6366f1; margin-bottom: 20px;">Thank you for attending! Please share your experience with others.</p>
+      
+      <form (ngSubmit)="submitFeedback()" #fForm="ngForm">
+        <div style="margin-bottom: 15px; display: flex; align-items: center; gap: 15px;">
+          <label style="font-weight: 600; color: #3730a3;">Rating:</label>
+          <div style="display: flex; gap: 5px;">
+            <select [(ngModel)]="feedbackRating" name="rating" required style="padding: 8px; border-radius: 4px; border: 1px solid #ddd; background: white;">
+              <option [value]="5">⭐⭐⭐⭐⭐ (5 - Excellent)</option>
+              <option [value]="4">⭐⭐⭐⭐ (4 - Very Good)</option>
+              <option [value]="3">⭐⭐⭐ (3 - Good)</option>
+              <option [value]="2">⭐⭐ (2 - Fair)</option>
+              <option [value]="1">⭐ (1 - Poor)</option>
+            </select>
+          </div>
+        </div>
+        <div style="margin-bottom: 15px;">
+          <textarea [(ngModel)]="feedbackComment" name="comment" rows="3" placeholder="What did you like or dislike? Any suggestions for improvement?" required style="width: 100%; padding: 12px; border-radius: 4px; border: 1px solid #ddd; font-family: inherit; resize: vertical;"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary" [disabled]="!fForm.form.valid || isSubmittingFeedback" style="width: 100%;">
+          {{ isSubmittingFeedback ? 'Submitting...' : 'Post Your Review' }}
+        </button>
+      </form>
+    </div>
+
+    <!-- Notice for registered but not yet approved users -->
+    <div *ngIf="isUserRegistered && registrationStatus !== 'approved'" class="feedback-notice" style="margin-top:20px; padding: 15px; background: #fefce8; border-radius: 8px; border: 1px solid #fef08a; color: #854d0e;">
+      <p style="margin: 0; font-size: 14px;">
+        <span style="font-size: 18px; margin-right: 5px;">ℹ️</span>
+        You can submit feedback once your registration is **Approved** by the event organizer. 
+        Current status: <strong>{{ registrationStatus | titlecase }}</strong>
+      </p>
+    </div>
+    <!-- End Form -->
+    <div class="feedback-list">
+      <div *ngFor="let item of feedback" class="feedback-item">
+        <div class="feedback-header">
+          <span class="user-name">{{ item.userDetails?.name || 'Anonymous' }}</span>
+          <span class="rating">⭐ {{ item.rating }}/5</span>
+        </div>
+        <p class="feedback-comment">{{ item.comments }}</p>
+        <span class="feedback-date">{{ item.timestamp | date: 'short' }}</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #loadingTemplate>
+  <div class="loading">
+    <p>Loading event details...</p>
+  </div>
+</ng-template>

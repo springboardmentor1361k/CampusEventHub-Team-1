@@ -1,0 +1,124 @@
+<div class="dashboard-container">
+  <div class="welcome-section">
+    <h1>Welcome, {{ currentUser?.name }}!</h1>
+    <p>Manage your college events and registrations</p>
+  </div>
+
+  <div class="tabs-container" *ngIf="isSuperAdmin">
+    <button class="tab-btn" [class.active]="activeTab === 'events'" (click)="setActiveTab('events')">Events</button>
+    <button class="tab-btn" [class.active]="activeTab === 'users'" (click)="setActiveTab('users')">Users Management</button>
+    <button class="tab-btn" [class.active]="activeTab === 'logs'" (click)="setActiveTab('logs')">Admin Logs</button>
+  </div>
+
+  <div *ngIf="activeTab === 'events'">
+    <div class="stats-section">
+      <div class="stat-card">
+        <span class="stat-icon">📊</span>
+        <div class="stat-content">
+          <span class="stat-label">Total Events</span>
+          <span class="stat-value">{{ events.length }}</span>
+        </div>
+      </div>
+      <div class="stat-card">
+        <span class="stat-icon">👥</span>
+        <div class="stat-content">
+          <span class="stat-label">Total Registrations</span>
+          <span class="stat-value">{{ getTotalRegistrations() }}</span>
+        </div>
+      </div>
+      <div class="stat-card">
+        <span class="stat-icon">💺</span>
+        <div class="stat-content">
+          <span class="stat-label">Total Slots</span>
+          <span class="stat-value">{{ getTotalSlots() }}</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="actions-section">
+      <a routerLink="/events/create" class="btn btn-primary btn-large">+ Create New Event</a>
+    </div>
+
+    <div *ngIf="loading" class="loading">
+      <p>Loading events...</p>
+    </div>
+
+    <div *ngIf="error" class="alert alert-danger">
+      {{ error }}
+    </div>
+
+    <div *ngIf="!loading && events.length === 0" class="no-events">
+      <p>You haven't created any events yet.</p>
+      <a routerLink="/events/create" class="btn btn-primary">Create Your First Event</a>
+    </div>
+
+    <div *ngIf="!loading && events.length > 0" class="events-section">
+      <h2>Your Events</h2>
+      
+      <div class="events-table-wrapper">
+        <table class="events-table">
+          <thead>
+            <tr>
+              <th>Event Title</th>
+              <th>Status</th>
+              <th>Date</th>
+              <th>Registrations</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let event of events">
+              <td>
+                <div class="title-cell">{{ event.title }}</div>
+                <div class="category-cell">{{ event.category | titlecase }}</div>
+              </td>
+              <td>
+                <span class="status-badge" [ngClass]="'status-' + event.status">
+                  {{ event.status | titlecase }}
+                </span>
+              </td>
+              <td>{{ event.startDate | date:'shortDate' }}</td>
+              <td>
+                <div class="registrations-cell">
+                  {{ event.registeredCount }} / {{ event.totalSlots }}
+                  <div class="slot-bar">
+                    <div class="slot-used" [style.width.%]="(event.registeredCount / event.totalSlots) * 100"></div>
+                  </div>
+                </div>
+              </td>
+              <td class="actions-cell">
+                <a [routerLink]="['/events', event.id]" class="action-btn view-btn" title="View Event">👁️</a>
+                <a [routerLink]="['/events', event.id, 'edit']" class="action-btn edit-btn" title="Edit Event">✏️</a>
+                <button (click)="deleteEvent(event.id)" class="action-btn delete-btn" title="Delete Event">🗑️</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="quick-actions">
+      <h2>Quick Actions</h2>
+      <a routerLink="/events/create" class="action-card">
+        <span class="icon">➕</span>
+        <span class="label">Create Event</span>
+      </a>
+      <a routerLink="/events" class="action-card">
+        <span class="icon">📋</span>
+        <span class="label">All Events</span>
+      </a>
+      <a routerLink="/dashboard/admin" class="action-card">
+        <span class="icon">🔄</span>
+        <span class="label">Refresh</span>
+      </a>
+    </div>
+  </div>
+
+  <div *ngIf="activeTab === 'users' && isSuperAdmin" class="users-tab-content">
+    <app-users-management></app-users-management>
+  </div>
+
+  <div *ngIf="activeTab === 'logs' && isSuperAdmin" class="logs-tab-content">
+    <app-admin-logs></app-admin-logs>
+  </div>
+</div>

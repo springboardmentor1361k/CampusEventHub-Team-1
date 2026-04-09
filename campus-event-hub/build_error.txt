@@ -1,0 +1,72 @@
+[33m❯[39m Building...
+[32m✔[39m Building...
+[35mBrowser bundles[39m     
+[1mInitial chunk files[22m [2m | [22m[1mNames[22m                       [2m | [22m [1mRaw size[22m[2m | [22m[1mEstimated transfer size[22m
+[32mchunk-R2WARGDH.js[39m   [2m | [22m[2m-[22m                           [2m | [22m[36m315.57 kB[39m[2m | [22m               [36m85.50 kB[39m
+[32mmain-XECULYBG.js[39m    [2m | [22m[2mmain[22m                        [2m | [22m  [36m7.55 kB[39m[2m | [22m                [36m2.33 kB[39m
+[32mchunk-GDU5S4FK.js[39m   [2m | [22m[2m-[22m                           [2m | [22m  [36m2.35 kB[39m[2m | [22m              [36m812 bytes[39m
+[32mstyles-5INURTSO.css[39m [2m | [22m[2mstyles[22m                      [2m | [22m  [36m0 bytes[39m[2m | [22m                [36m0 bytes[39m
+
+[1m [22m                   [2m | [22m[1mInitial total[22m               [2m | [22m[1m325.47 kB[22m[2m | [22m               [1m88.64 kB[22m
+
+[1mLazy chunk files[22m    [2m | [22m[1mNames[22m                       [2m | [22m [1mRaw size[22m[2m | [22m[1mEstimated transfer size[22m
+[32mchunk-RT77OCZB.js[39m   [2m | [22m[2m-[22m                           [2m | [22m [36m45.46 kB[39m[2m | [22m                [36m9.28 kB[39m
+[32mchunk-AAJK5XVE.js[39m   [2m | [22m[2madmin-dashboard-component[22m   [2m | [22m [36m22.93 kB[39m[2m | [22m                [36m5.15 kB[39m
+[32mchunk-MO4I76A3.js[39m   [2m | [22m[2mevent-detail-component[22m      [2m | [22m [36m18.30 kB[39m[2m | [22m                [36m4.81 kB[39m
+[32mchunk-VZA5GMLB.js[39m   [2m | [22m[2mevent-creation-component[22m    [2m | [22m [36m11.80 kB[39m[2m | [22m                [36m3.10 kB[39m
+[32mchunk-S7HEGLH7.js[39m   [2m | [22m[2mstudent-dashboard-component[22m [2m | [22m  [36m9.52 kB[39m[2m | [22m                [36m2.50 kB[39m
+[32mchunk-6XH3PJ5U.js[39m   [2m | [22m[2mregister-component[22m          [2m | [22m  [36m9.47 kB[39m[2m | [22m                [36m2.61 kB[39m
+[32mchunk-TSI5QKFG.js[39m   [2m | [22m[2mevent-listing-component[22m     [2m | [22m  [36m9.01 kB[39m[2m | [22m                [36m2.75 kB[39m
+[32mchunk-CT74ACPH.js[39m   [2m | [22m[2madmin-participants-component[22m[2m | [22m  [36m6.55 kB[39m[2m | [22m                [36m2.00 kB[39m
+[32mchunk-V3UJKZ6B.js[39m   [2m | [22m[2mlogin-component[22m             [2m | [22m  [36m6.08 kB[39m[2m | [22m                [36m1.95 kB[39m
+[32mchunk-6ZVJHLSP.js[39m   [2m | [22m[2mhome-component[22m              [2m | [22m  [36m5.42 kB[39m[2m | [22m                [36m1.66 kB[39m
+[32mchunk-BQUZVZUL.js[39m   [2m | [22m[2madmin-feedback-component[22m    [2m | [22m  [36m5.27 kB[39m[2m | [22m                [36m1.76 kB[39m
+[32mchunk-7Y7FW6I6.js[39m   [2m | [22m[2m-[22m                           [2m | [22m  [36m1.81 kB[39m[2m | [22m              [36m693 bytes[39m
+[32mchunk-S7MU63B7.js[39m   [2m | [22m[2munauthorized-component[22m      [2m | [22m  [36m1.60 kB[39m[2m | [22m              [36m661 bytes[39m
+[32mchunk-AOTZG4PN.js[39m   [2m | [22m[2m-[22m                           [2m | [22m  [36m1.25 kB[39m[2m | [22m              [36m486 bytes[39m
+[32mchunk-AMPFQZDU.js[39m   [2m | [22m[2m-[22m                           [2m | [22m  [36m1.10 kB[39m[2m | [22m              [36m406 bytes[39m
+
+
+[35mServer bundles[39m      
+[1mInitial chunk files[22m [2m | [22m[1mNames[22m                       [2m | [22m [1mRaw size[22m
+[32mserver.mjs[39m          [2m | [22m[2mserver[22m                      [2m | [22m[36m810.22 kB[39m[2m | [22m                       
+[32mmain.server.mjs[39m     [2m | [22m[2mmain.server[22m                 [2m | [22m[36m443.75 kB[39m[2m | [22m                       
+[32mchunk-4CXFHH6J.mjs[39m  [2m | [22m[2m-[22m                           [2m | [22m[36m314.02 kB[39m[2m | [22m                       
+[32mpolyfills.server.mjs[39m[2m | [22m[2mpolyfills.server[22m            [2m | [22m[36m233.25 kB[39m[2m | [22m                       
+[32mchunk-VBOTYIIT.mjs[39m  [2m | [22m[2m-[22m                           [2m | [22m  [36m2.38 kB[39m[2m | [22m                       
+[32mchunk-L2MVFUKD.mjs[39m  [2m | [22m[2m-[22m                           [2m | [22m  [36m1.32 kB[39m[2m | [22m                       
+[32mchunk-T55IDOPT.mjs[39m  [2m | [22m[2m-[22m                           [2m | [22m[36m976 bytes[39m[2m | [22m                       
+
+[1mLazy chunk files[22m    [2m | [22m[1mNames[22m                       [2m | [22m [1mRaw size[22m
+[32mchunk-AXH5LMO3.mjs[39m  [2m | [22m[2m-[22m                           [2m | [22m [36m45.53 kB[39m[2m | [22m                       
+[32mchunk-MV3WPFUT.mjs[39m  [2m | [22m[2madmin-dashboard-component[22m   [2m | [22m [36m23.01 kB[39m[2m | [22m                       
+[32mchunk-WF5S5HJT.mjs[39m  [2m | [22m[2mevent-detail-component[22m      [2m | [22m [36m18.38 kB[39m[2m | [22m                       
+[32mchunk-RHDGF2TI.mjs[39m  [2m | [22m[2mxhr2[22m                        [2m | [22m [36m12.14 kB[39m[2m | [22m                       
+[32mchunk-N3SI5I4Q.mjs[39m  [2m | [22m[2mxhr2[22m                        [2m | [22m [36m12.07 kB[39m[2m | [22m                       
+[32mchunk-KLAZPFIR.mjs[39m  [2m | [22m[2mevent-creation-component[22m    [2m | [22m [36m11.88 kB[39m[2m | [22m                       
+[32mchunk-M4BE2SSQ.mjs[39m  [2m | [22m[2mstudent-dashboard-component[22m [2m | [22m  [36m9.59 kB[39m[2m | [22m                       
+[32mchunk-TEUPJFNU.mjs[39m  [2m | [22m[2mregister-component[22m          [2m | [22m  [36m9.54 kB[39m[2m | [22m                       
+[32mchunk-72C27I5U.mjs[39m  [2m | [22m[2mevent-listing-component[22m     [2m | [22m  [36m9.08 kB[39m[2m | [22m                       
+[32mchunk-CIEHJUOK.mjs[39m  [2m | [22m[2madmin-participants-component[22m[2m | [22m  [36m6.63 kB[39m[2m | [22m                       
+[32mchunk-YXGVTAIL.mjs[39m  [2m | [22m[2mlogin-component[22m             [2m | [22m  [36m6.15 kB[39m[2m | [22m                       
+[32mchunk-SXL6K2EO.mjs[39m  [2m | [22m[2mhome-component[22m              [2m | [22m  [36m5.49 kB[39m[2m | [22m                       
+[32mchunk-NEWBTGGN.mjs[39m  [2m | [22m[2madmin-feedback-component[22m    [2m | [22m  [36m5.34 kB[39m[2m | [22m                       
+[32mchunk-EM4U63EJ.mjs[39m  [2m | [22m[2m-[22m                           [2m | [22m  [36m1.84 kB[39m[2m | [22m                       
+[32mchunk-EP3ANGBD.mjs[39m  [2m | [22m[2munauthorized-component[22m      [2m | [22m  [36m1.66 kB[39m[2m | [22m                       
+[2m...and 2 more lazy chunks files. Use "--verbose" to show all the files.[22m
+
+[35mPrerendered 11 static routes.[39m
+Application bundle generation failed. [6.372 seconds] - 2026-04-08T17:41:19.321Z
+
+[1m[33m[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1msrc/app/pages/dashboard/admin-dashboard/admin-dashboard.component.css exceeded maximum budget. Budget 4.00 kB was not met by 790 bytes with a total of 4.79 kB.[0m
+
+
+[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1msrc/app/modules/events/components/event-detail/event-detail.component.css exceeded maximum budget. Budget 4.00 kB was not met by 160 bytes with a total of 4.16 kB.[0m
+
+[39m[22m
+[1m[31m[31mX [41;31m[[41;97mERROR[41;31m][0m [1mThe 'events/:id' route uses prerendering and includes parameters, but 'getPrerenderParams' is missing. Please define 'getPrerenderParams' function for this route in your server routing configuration or specify a different 'renderMode'.[0m
+
+
+[31mX [41;31m[[41;97mERROR[41;31m][0m [1mThe 'dashboard/admin/participants/:eventId' route uses prerendering and includes parameters, but 'getPrerenderParams' is missing. Please define 'getPrerenderParams' function for this route in your server routing configuration or specify a different 'renderMode'.[0m
+
+[39m[22m

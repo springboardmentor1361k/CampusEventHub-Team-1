@@ -1,0 +1,227 @@
+<div class="event-creation-container">
+  <a routerLink="/events" class="back-link">← Back to Events</a>
+
+  <div class="creation-card">
+    <h1>Create New Event</h1>
+
+    <div *ngIf="success" class="alert alert-success">
+      Event created successfully! Redirecting...
+    </div>
+
+    <form [formGroup]="eventForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="title">Event Title</label>
+        <input
+          type="text"
+          id="title"
+          class="form-control"
+          formControlName="title"
+          [class.is-invalid]="submitted && f['title'].errors"
+          placeholder="Enter event title"
+        />
+        <div *ngIf="submitted && f['title'].errors" class="invalid-feedback">
+          <div *ngIf="f['title'].errors['required']">Title is required</div>
+          <div *ngIf="f['title'].errors['minlength']">Title must be at least 5 characters</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="description">Description</label>
+        <textarea
+          id="description"
+          class="form-control"
+          formControlName="description"
+          [class.is-invalid]="submitted && f['description'].errors"
+          placeholder="Enter event description"
+          rows="5"
+        ></textarea>
+        <div *ngIf="submitted && f['description'].errors" class="invalid-feedback">
+          <div *ngIf="f['description'].errors['required']">Description is required</div>
+          <div *ngIf="f['description'].errors['minlength']">Description must be at least 20 characters</div>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="category">Category</label>
+          <select
+            id="category"
+            class="form-control"
+            formControlName="category"
+            [class.is-invalid]="submitted && f['category'].errors"
+          >
+            <option value="">Select category</option>
+            <option *ngFor="let category of categories" [value]="category">
+              {{ category | titlecase }}
+            </option>
+          </select>
+          <div *ngIf="submitted && f['category'].errors" class="invalid-feedback">
+            <div *ngIf="f['category'].errors['required']">Category is required</div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="location">Location</label>
+          <input
+            type="text"
+            id="location"
+            class="form-control"
+            formControlName="location"
+            [class.is-invalid]="submitted && f['location'].errors"
+            placeholder="Event venue"
+          />
+          <div *ngIf="submitted && f['location'].errors" class="invalid-feedback">
+            <div *ngIf="f['location'].errors['required']">Location is required</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="startDate">Start Date & Time</label>
+          <input
+            type="datetime-local"
+            id="startDate"
+            class="form-control"
+            formControlName="startDate"
+            [class.is-invalid]="submitted && f['startDate'].errors"
+          />
+          <div *ngIf="submitted && f['startDate'].errors" class="invalid-feedback">
+            <div *ngIf="f['startDate'].errors['required']">Start date is required</div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="endDate">End Date & Time</label>
+          <input
+            type="datetime-local"
+            id="endDate"
+            class="form-control"
+            formControlName="endDate"
+            [class.is-invalid]="submitted && f['endDate'].errors"
+          />
+          <div *ngIf="submitted && f['endDate'].errors" class="invalid-feedback">
+            <div *ngIf="f['endDate'].errors['required']">End date is required</div>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="eventForm.errors?.['invalidDateRange'] && submitted" class="alert alert-danger">
+        End date must be after start date
+      </div>
+
+      <div class="form-group">
+        <label for="totalSlots">Total Slots</label>
+        <input
+          type="number"
+          id="totalSlots"
+          class="form-control"
+          formControlName="totalSlots"
+          [class.is-invalid]="submitted && f['totalSlots'].errors"
+          placeholder="Number of available slots"
+          min="1"
+        />
+        <div *ngIf="submitted && f['totalSlots'].errors" class="invalid-feedback">
+          <div *ngIf="f['totalSlots'].errors['required']">Total slots is required</div>
+          <div *ngIf="f['totalSlots'].errors['min']">Slots must be at least 1</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="entryFee">Entry Fee (₹)</label>
+        <input
+          type="number"
+          id="entryFee"
+          class="form-control"
+          formControlName="entryFee"
+          placeholder="0 for free event"
+          min="0"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="image">Event Cover Image URL (Optional)</label>
+        <input
+          type="url"
+          id="image"
+          class="form-control"
+          formControlName="image"
+          placeholder="https://example.com/image.jpg"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="requirements">Requirements / Eligibility</label>
+        <textarea
+          id="requirements"
+          class="form-control"
+          formControlName="requirements"
+          placeholder="e.g. Must be a current student, bring laptop, team of 2-4 members..."
+          rows="3"
+        ></textarea>
+      </div>
+
+      <div class="form-group">
+        <label for="prizes">Prizes & Rewards</label>
+        <textarea
+          id="prizes"
+          class="form-control"
+          formControlName="prizes"
+          placeholder="e.g. 1st Prize: ₹10,000, 2nd Prize: ₹5,000, Certificates for all..."
+          rows="3"
+        ></textarea>
+      </div>
+
+      <div class="form-group">
+        <label for="rules">Rules & Guidelines</label>
+        <textarea
+          id="rules"
+          class="form-control"
+          formControlName="rules"
+          placeholder="e.g. No plagiarism, arrive 30 mins early, ID card mandatory..."
+          rows="3"
+        ></textarea>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="contactEmail">Contact Email</label>
+          <input
+            type="email"
+            id="contactEmail"
+            class="form-control"
+            formControlName="contactEmail"
+            [class.is-invalid]="submitted && f['contactEmail'].errors"
+            placeholder="organizer@college.edu"
+          />
+          <div *ngIf="submitted && f['contactEmail'].errors" class="invalid-feedback">
+            <div *ngIf="f['contactEmail'].errors['email']">Enter a valid email</div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="contactPhone">Contact Phone</label>
+          <input
+            type="tel"
+            id="contactPhone"
+            class="form-control"
+            formControlName="contactPhone"
+            placeholder="+91 98765 43210"
+          />
+        </div>
+      </div>
+
+      <div *ngIf="error" class="alert alert-danger">
+        {{ error }}
+      </div>
+
+      <button
+        type="submit"
+        class="btn btn-primary"
+        [disabled]="loading"
+      >
+        {{ loading ? 'Creating Event...' : 'Create Event' }}
+      </button>
+    </form>
+  </div>
+</div>
