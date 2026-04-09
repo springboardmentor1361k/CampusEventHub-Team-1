@@ -1,0 +1,51 @@
+<div class="users-container">
+  <div class="header">
+    <h2>Super Admin: All Users</h2>
+    <span class="user-count">{{ users.length }} Total Users</span>
+  </div>
+
+  <div *ngIf="loading" class="loading">Loading users...</div>
+  <div *ngIf="error" class="alert alert-danger">{{ error }}</div>
+
+  <div class="table-responsive" *ngIf="!loading && !error">
+    <table class="users-table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>College / Role</th>
+          <th>Registered</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of users">
+          <td>
+            <div class="user-name">
+              {{ user.name }}
+              <span *ngIf="user._id === currentUserId" class="badge-self">You</span>
+            </div>
+          </td>
+          <td>{{ user.email }}</td>
+          <td>
+            <span class="role-badge" [ngClass]="'role-' + user.role">
+              {{ user.role === 'college_admin' ? 'College Admin' : (user.role === 'super_admin' ? 'Super Admin' : 'Student') }}
+            </span>
+            <div class="college-name">{{ user.college }}</div>
+          </td>
+          <td>{{ user.createdAt | date:'shortDate' }}</td>
+          <td>
+            <button 
+              class="btn-delete" 
+              (click)="deleteUser(user._id)" 
+              [disabled]="user._id === currentUserId"
+              [title]="user._id === currentUserId ? 'You cannot delete yourself' : 'Delete User'"
+            >
+              Delete
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

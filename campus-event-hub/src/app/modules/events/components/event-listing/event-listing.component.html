@@ -1,0 +1,81 @@
+<div class="events-container">
+  <h1>Upcoming Events</h1>
+  
+  <div class="filters-section">
+    <form [formGroup]="filterForm" class="filters-form">
+      <div class="filter-group">
+        <input
+          type="text"
+          placeholder="Search events..."
+          formControlName="searchQuery"
+          class="search-input"
+        />
+      </div>
+      
+      <div class="filter-group">
+        <select formControlName="category" class="filter-select">
+          <option value="">All Categories</option>
+          <option *ngFor="let category of categories" [value]="category">
+            {{ category | titlecase }}
+          </option>
+        </select>
+      </div>
+
+      <div class="filter-group">
+        <select formControlName="status" class="filter-select">
+          <option value="">All Statuses</option>
+          <option *ngFor="let status of eventStatuses" [value]="status">
+            {{ status | titlecase }}
+          </option>
+        </select>
+      </div>
+    </form>
+  </div>
+
+  <div *ngIf="loading" class="loading">
+    Loading events...
+  </div>
+
+  <div *ngIf="error" class="alert alert-danger">
+    {{ error }}
+  </div>
+
+  <div *ngIf="!loading && filteredEvents.length === 0" class="no-events">
+    <p>No events found matching your criteria.</p>
+  </div>
+
+  <div class="events-grid" *ngIf="!loading && filteredEvents.length > 0">
+    <div class="event-card" *ngFor="let event of filteredEvents" [routerLink]="['/events', event.id]">
+      <div class="event-image" [ngStyle]="{'background-image': 'url(' + (event.image || 'https://ui-avatars.com/api/?name=' + event.category + '&background=random&color=fff&size=500&font-size=0.15') + ')'}">
+        <div class="event-status" [ngClass]="'status-' + event.status.toLowerCase()">
+          {{ event.status | titlecase }}
+        </div>
+      </div>
+      <div class="event-header">
+        <h3>{{ event.title }}</h3>
+      </div>
+
+      <p class="event-college">{{ event.collegeName }}</p>
+      <p class="event-category">{{ event.category | titlecase }}</p>
+
+      <div class="event-details">
+        <div class="detail">
+          <span class="label">📅 Date:</span>
+          <span>{{ event.startDate | date: 'short' }}</span>
+        </div>
+        <div class="detail">
+          <span class="label">📍 Location:</span>
+          <span>{{ event.location }}</span>
+        </div>
+        <div class="detail">
+          <span class="label">👥 Slots Available:</span>
+          <span>{{ getAvailableSlots(event) }} / {{ event.totalSlots }}</span>
+        </div>
+      </div>
+
+      <p class="event-description">{{ event.description }}</p>
+
+      <a [routerLink]="'/events/' + event.id" class="btn btn-primary">View Details</a>
+    </div>
+  </div>
+</div>
