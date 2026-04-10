@@ -1,0 +1,17 @@
+<nav class="navbar">
+  <div class="navbar-content">
+    <div class="logo" routerLink="/">CampusEventHub</div>
+    <div class="nav-links">
+      <a routerLink="/events" class="nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Events</a>
+      <ng-container *ngIf="(authService.isAuthenticated$ | async); else loggedOut">
+        <a routerLink="/dashboard/student" class="nav-link" routerLinkActive="active" *ngIf="!authService.isCollegeAdmin()">Dashboard</a>
+        <a routerLink="/dashboard/admin" class="nav-link" routerLinkActive="active" *ngIf="authService.isCollegeAdmin()">Admin Dashboard</a>
+        <button (click)="authService.logout()" class="btn-logout" style="margin-left:10px;">Logout</button>
+      </ng-container>
+      <ng-template #loggedOut>
+        <a routerLink="/auth/login" class="btn btn-primary" style="margin-left: 10px;">Login</a>
+        <a routerLink="/auth/register" class="btn btn-secondary" style="margin-left: 10px;">Register</a>
+      </ng-template>
+    </div>
+  </div>
+</nav>

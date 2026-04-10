@@ -1,0 +1,119 @@
+<div class="register-container">
+  <div class="register-card">
+    <h1>CampusEventHub</h1>
+    <h2>Create Account</h2>
+
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="name">Full Name</label>
+        <input
+          type="text"
+          id="name"
+          class="form-control"
+          formControlName="name"
+          [class.is-invalid]="submitted && f['name'].errors"
+          placeholder="Enter your full name"
+        />
+        <div *ngIf="submitted && f['name'].errors" class="invalid-feedback">
+          <div *ngIf="f['name'].errors['required']">Full name is required</div>
+          <div *ngIf="f['name'].errors['minlength']">Name must be at least 3 characters</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email Address</label>
+        <input
+          type="email"
+          id="email"
+          class="form-control"
+          formControlName="email"
+          [class.is-invalid]="submitted && f['email'].errors"
+          placeholder="Enter your email"
+        />
+        <div *ngIf="submitted && f['email'].errors" class="invalid-feedback">
+          <div *ngIf="f['email'].errors['required']">Email is required</div>
+          <div *ngIf="f['email'].errors['email']">Email format is invalid</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="college">College/Institution</label>
+        <select
+          id="college"
+          class="form-control"
+          formControlName="college"
+          [class.is-invalid]="submitted && f['college'].errors"
+        >
+          <option value="">Select your college</option>
+          <option *ngFor="let college of colleges" [value]="college">{{ college }}</option>
+        </select>
+        <div *ngIf="submitted && f['college'].errors" class="invalid-feedback">
+          <div *ngIf="f['college'].errors['required']">College selection is required</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="role">Register As</label>
+        <select
+          id="role"
+          class="form-control"
+          formControlName="role"
+          [class.is-invalid]="submitted && f['role'].errors"
+        >
+          <option *ngFor="let role of userRoles" [value]="role.value">{{ role.label }}</option>
+        </select>
+        <div *ngIf="submitted && f['role'].errors" class="invalid-feedback">
+          <div *ngIf="f['role'].errors['required']">Role selection is required</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input
+          type="password"
+          id="password"
+          class="form-control"
+          formControlName="password"
+          [class.is-invalid]="submitted && f['password'].errors"
+          placeholder="Enter a strong password"
+        />
+        <div *ngIf="submitted && f['password'].errors" class="invalid-feedback">
+          <div *ngIf="f['password'].errors['required']">Password is required</div>
+          <div *ngIf="f['password'].errors['minlength']">Password must be at least 6 characters</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="confirmPassword">Confirm Password</label>
+        <input
+          type="password"
+          id="confirmPassword"
+          class="form-control"
+          formControlName="confirmPassword"
+          [class.is-invalid]="submitted && (f['confirmPassword'].errors || registerForm.errors?.['passwordMismatch'])"
+          placeholder="Re-enter your password"
+        />
+        <div *ngIf="submitted && (f['confirmPassword'].errors || registerForm.errors?.['passwordMismatch'])" class="invalid-feedback">
+          <div *ngIf="f['confirmPassword'].errors?.['required']">Confirm password is required</div>
+          <div *ngIf="registerForm.errors?.['passwordMismatch']">Passwords do not match</div>
+        </div>
+      </div>
+
+      <div *ngIf="error" class="alert alert-danger">
+        {{ error }}
+      </div>
+
+      <button
+        type="submit"
+        class="btn btn-primary"
+        [disabled]="loading"
+      >
+        {{ loading ? 'Creating Account...' : 'Create Account' }}
+      </button>
+    </form>
+
+    <p class="text-center mt-3">
+      Already have an account? <a routerLink="/auth/login">Login here</a>
+    </p>
+  </div>
+</div>

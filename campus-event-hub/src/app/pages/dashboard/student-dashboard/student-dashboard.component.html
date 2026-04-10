@@ -1,0 +1,78 @@
+
+<div class="dashboard-container">
+  <div class="welcome-section">
+    <h1>Welcome, {{ currentUser?.name }}!</h1>
+    <p>Your registered events and participation status</p>
+  </div>
+
+  <div *ngIf="loading" class="loading">
+    <p>Loading your registrations...</p>
+  </div>
+
+  <div *ngIf="error" class="alert alert-danger">
+    {{ error }}
+  </div>
+
+  <div *ngIf="!loading && registrations.length === 0" class="no-registrations">
+    <p>You haven't registered for any events yet.</p>
+    <a routerLink="/events" class="btn btn-primary">Browse Events</a>
+  </div>
+
+  <div *ngIf="!loading && registrations.length > 0" class="registrations-section">
+    <h2>My Registrations ({{ registrations.length }})</h2>
+    
+    <div class="registrations-grid">
+      <div *ngFor="let registration of registrations" class="registration-card">
+        <div class="card-header">
+          <h3>{{ registration.eventId?.title || 'Event Registration' }}</h3>
+          <span class="status-badge" [ngClass]="'status-' + registration.status">
+            {{ registration.status | titlecase }}
+          </span>
+        </div>
+
+        <div class="card-content">
+          <table class="info-table">
+            <tr *ngIf="registration.eventId?.startDate">
+              <td class="label">Event Date:</td>
+              <td>{{ registration.eventId.startDate | date: 'medium' }}</td>
+            </tr>
+            <tr *ngIf="registration.eventId?.location">
+              <td class="label">Location:</td>
+              <td>{{ registration.eventId.location }}</td>
+            </tr>
+            <tr>
+              <td class="label">Registered On:</td>
+              <td>{{ (registration.createdAt || registration.registrationDate) | date: 'short' }}</td>
+            </tr>
+            <tr *ngIf="registration.approvalDate">
+              <td class="label">Approval Date:</td>
+              <td>{{ registration.approvalDate | date: 'short' }}</td>
+            </tr>
+            <tr *ngIf="registration.rejectionReason">
+              <td class="label">Reason:</td>
+              <td class="text-danger">{{ registration.rejectionReason }}</td>
+            </tr>
+          </table>
+        </div>
+
+        <div class="card-actions">
+          <a [routerLink]="'/events/' + (registration.eventId?.id || registration.eventId)" class="btn btn-secondary">
+            View Event Details
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="quick-actions">
+    <h2>Quick Actions</h2>
+    <a routerLink="/events" class="action-card">
+      <span class="icon">📋</span>
+      <span class="label">Browse All Events</span>
+    </a>
+    <a routerLink="/dashboard/student" class="action-card">
+      <span class="icon">🔄</span>
+      <span class="label">Refresh</span>
+    </a>
+  </div>
+</div>

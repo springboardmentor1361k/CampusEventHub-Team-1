@@ -1,0 +1,55 @@
+<div class="logs-container">
+  <div class="header">
+    <h2>System Admin Logs</h2>
+    <span class="log-count">Total Actions: {{ totalLogs }}</span>
+  </div>
+
+  <div *ngIf="loading" class="loading">
+    <p>Loading records...</p>
+  </div>
+
+  <div *ngIf="error" class="alert alert-danger" style="color: red;">
+    {{ error }}
+  </div>
+
+  <div *ngIf="!loading && logs.length === 0" class="loading">
+    <p>No admin logs found.</p>
+  </div>
+
+  <div class="table-responsive" *ngIf="!loading && logs.length > 0">
+    <table class="logs-table">
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Action</th>
+          <th>Entity</th>
+          <th>Admin Details</th>
+          <th>Changes</th>
+          <th>IP Address</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let log of logs">
+          <td>{{ log.createdAt | date:'short' }}</td>
+          <td>
+            <span class="action-badge" [ngClass]="'action-' + log.action">
+              {{ log.action | uppercase }}
+            </span>
+          </td>
+          <td>
+            <span class="entity-badge">{{ log.entityType | titlecase }}</span><br>
+            <small style="color: #888;">{{ log.entityId.substring(0, 8) }}...</small>
+          </td>
+          <td>
+            <span style="font-weight: 600; color: #333;">{{ log.userId?.name || 'Unknown' }}</span><br>
+            <small>{{ log.userId?.email || 'Unknown' }}</small>
+          </td>
+          <td class="changes-cell">
+            {{ getChangesDisplay(log.changes) }}
+          </td>
+          <td><small>{{ log.ipAddress || 'Hidden' }}</small></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
